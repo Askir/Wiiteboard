@@ -30,16 +30,20 @@ bool MorphingController::addCalibrationPoint(float x, float y) {
 }
 
 void MorphingController::resetCalibration() {
-	calibrationRectangle = Rectangle();
+	//calibrationRectangle = Rectangle();
+	counter = 0;
 }
 
 bool MorphingController::deleteLastCalibrationPoint() {
-	std::vector<Point> rectanglePoints = calibrationRectangle.getVector();
-	if (rectanglePoints.size() > 0) {
-		calibrationRectangle.getVector().pop_back();
-		return true;
-	}
-	return false;
+	//std::vector<Point> rectanglePoints = calibrationRectangle.getVector();
+	//if (rectanglePoints.size() > 0) {
+	//	calibrationRectangle.getVector().pop_back();
+	//	return true;
+	//}
+	//return false;
+
+	counter--;
+	return true;
 }
 
 bool MorphingController::finalCalibration() {
