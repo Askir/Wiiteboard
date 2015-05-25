@@ -12,7 +12,8 @@ MorphingController::MorphingController()
 {
 	quadrangleMorphing = QuadrangleMorphing();
 	mouseMovement = MouseMovement();
-	inputHandling = InputHandling();
+	inputHandling = InputHandlingMouseMode();
+	inputHandlingTouchMode = InputHandlingTouchMode();
 	calibrationRectangle = Rectangle();
 }
 
@@ -57,16 +58,23 @@ bool MorphingController::finalCalibration() {
 	**/
 
 }
+
 PenAction MorphingController::getNewData(bool bitValue) {
+	
+	return inputHandlingTouchMode.onReceiveData(bitValue);
+	
+	/**
 	PenAction penAction = NO_ACTION;
 	if (inputHandling.receiveBit(bitValue)) {
 		penAction = inputHandling.getPenAction();
 	}
 	return penAction;
+	**/
 }
 Coord* MorphingController::getNewIRPoint(float x, float y) {
 	Coord coord((double)x, (double)y);
 	Coord* point = pers.transform(coord);
+	inputHandlingTouchMode.onReceiveIRPoint(point);
 	return point;
 	/**
 	Point point = quadrangleMorphing.startPointTransformation(Point(x * MorphingController::WIIMOTE_CAMERA_WIDTH, y * MorphingController::WIIMOTE_CAMERA_HEIGHT, 0));

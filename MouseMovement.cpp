@@ -31,10 +31,18 @@ void MouseMovement::executePenAction(PenAction penAction) {
 		case RIGHT_CLICK_UP:
 			rightClickUp();
 			break;
+		case RIGHT_CLICK:
+			rightClickDown();
+			rightClickUp();
+			break;
 		case LEFT_CLICK_DOWN:
 			leftClickDown();
 			break;
 		case LEFT_CLICK_UP:
+			leftClickUp();
+			break;
+		case LEFT_CLICK:
+			leftClickDown();
 			leftClickUp();
 			break;
 	}

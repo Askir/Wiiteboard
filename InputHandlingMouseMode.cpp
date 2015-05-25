@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <iostream>
-#include "InputHandling.h"
+#include "InputHandlingMouseMode.h"
 #include <array>
 
 
@@ -13,7 +13,7 @@ std::array<bool, 4> MOVE_MOUSE_NIBBLE = { 0, 1, 1, 1 };
 std::array<bool, 2> CORRECT_START_BITS = { 0, 1 };
 
 //returns true if the 8 Bit limit is reached
-bool InputHandling::receiveBit(bool bit) {
+bool InputHandlingMouseMode::receiveBit(bool bit) {
 	if (!startBitReceived) {
 		startBitReceived = !bit;
 	}
@@ -34,7 +34,7 @@ bool InputHandling::receiveBit(bool bit) {
 	return false;
 }
 
-bool InputHandling::readFrame() {
+bool InputHandlingMouseMode::readFrame() {
 	lastBit = byte[0];
 	int counter = 0;
 	int byteIndex = 0;
@@ -87,7 +87,7 @@ bool InputHandling::readFrame() {
 	return false;
 }
 
-PenAction InputHandling::analyzePenAction() {
+PenAction InputHandlingMouseMode::analyzePenAction() {
 	for (bool b : nibble) {
 		//std::cout << "\n" << "Nibble: " << b << "\n";
 	}
@@ -112,12 +112,12 @@ PenAction InputHandling::analyzePenAction() {
 	return penAction;
 }
 
-PenAction InputHandling::getPenAction() {
+PenAction InputHandlingMouseMode::getPenAction() {
 	return analyzePenAction();
 }
 
 
 
-InputHandling::~InputHandling()
+InputHandlingMouseMode::~InputHandlingMouseMode()
 {
 }
