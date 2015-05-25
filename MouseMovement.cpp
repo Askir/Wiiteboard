@@ -20,7 +20,7 @@ void MouseMovement::rightClickDown() {
 }
 
 void MouseMovement::setMousePosition(int x, int y) {
-	setPosition(x, 65665 - y);
+	setPosition(x, 65635 - y);
 }
 
 void MouseMovement::executePenAction(PenAction penAction) {

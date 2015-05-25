@@ -46,7 +46,8 @@ void CALLBACK intervallMouseControl(
 	//refreshing wiimote data every Tick to get the newest Data
 	wh.refreshWiimotes();
 	//Initializing some needed Arrays for later us
-	static Coord* lastpoints[8] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	static Coord* lastPoints[8] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	static int lastPointcounter[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 	Coord* seenPoints[8] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 	PenAction action[8] = { NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION };
 	//getting the IRDATA from every single camera mode wiimote and processing it with the linked morphcontroller
@@ -54,7 +55,11 @@ void CALLBACK intervallMouseControl(
 		if (modes[i] == CAMERA_MODE){
 			bool visible = false;
 			float data[2];
-			visible = wh.getIRData(i, 0, data);
+			int k = 0;
+			while (!visible && k < 4){
+				visible = wh.getIRData(i, k, data);
+				k++;
+			}
 			action[i] = morphcon[i].getNewData(visible);
 			if (visible){
 				
@@ -68,13 +73,16 @@ void CALLBACK intervallMouseControl(
 		}
 	}
 	//selfexplaining variable initializing. Why it is here and not earlier in the code? - I don't know I just felt that way
+	static int lastPointNr = 0;
 	int pointNr=0;
 	int xValue=0;
 	int yValue=0;
-	double maxValue = 65665;
+	double maxValue = 65635;
 	double minValue = 0;
 
 	//Adding the single IRValues together to get the average value later
+
+
 	for (int i = 0; i < 8; i++){
 		
 		if ((seenPoints[i] != NULL) && (seenPoints[i]->x >= minValue) && (seenPoints[i]->x <= maxValue) && (seenPoints[i]->x >= minValue) && (seenPoints[i]->x <= maxValue)) {
@@ -82,6 +90,17 @@ void CALLBACK intervallMouseControl(
 		//	_tprintf(_T("ADDED 1 to pointNR, pointNR is now %i \n"),pointNr);
 			xValue += seenPoints[i]->x;
 			yValue += seenPoints[i]->y;
+		}
+		else{
+			//if (lastPoints[i] != NULL){
+				lastPointcounter[i] += 1;
+			//}
+			if ((lastPoints[i] != NULL) && (lastPoints[i]->x >= minValue) && (lastPoints[i]->x <= maxValue) && (lastPoints[i]->x >= minValue) && (lastPoints[i]->x <= maxValue) && lastPointcounter[i] < 4){
+				pointNr++;
+				xValue += lastPoints[i]->x;
+				yValue += lastPoints[i]->y;
+
+			}
 		}
 	}
 	//setting the postiong to the average calculated value
@@ -108,8 +127,16 @@ void CALLBACK intervallMouseControl(
 	}
 	//deleting the seenPOints to prevent a memory leak
 	for (int i=0; i < 8; i++){
-		lastpoints[i] = seenPoints[i];
-		delete seenPoints[i];
+		if (lastPointcounter[i]>3){
+			delete lastPoints[i];
+			lastPointcounter[i] = 0;
+		}
+		if (seenPoints[i] != NULL || lastPoints[i]!=NULL){
+			delete lastPoints[i];
+			lastPoints[i] = seenPoints[i];
+			lastPointcounter[i] = 0;
+		}
+		
 	}
 	
 	LeaveCriticalSection(&cs);
@@ -150,7 +177,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	InitializeCriticalSection(&cs);
 	//connecting all available wiimotes they have to be connected with bluetooth before the start of the programm (i might change this later but i am to lazy/busy atm)
 	connected = wh.connectWiimotes();
-	_tprintf(_T("%u connected \n"), connected);
+	_tprintf(_T("%u Wiimotes connected \n"), connected);
 /** wh.addPresentationFunctions(0);
 	while (true){
 		wh.refreshWiimotes();
@@ -167,7 +194,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		wh.setLED(i, i);
 		bool defined = false;
 		while (!defined){
-			_tprintf(_T("choose mode for wiimote Number %u \n"), i);
+			_tprintf(_T("Choose mode for wiimote Number %u \n"), i);
 			_tprintf(_T("[w] for wiitboard camera \n[p} for presentation tool \n"));
 			char input = _getch();
 			if (input == 'w'){
@@ -221,21 +248,33 @@ restartPoint:
 				}
 				
 			}
-			//waiting a second so windows doesn't explode and no point does get interpretated twice or even more
+wrongButton:
 			_tprintf(_T("Press 'r' to restart the progress \n Press 'd' to do the last point again \n Press 'a' if you are happy with the result \n"));
 			char input = _getch();
 			switch (input){
 			case 'r':
+				for (int i = 0; i < 8; i++){
+					if (modes[i] == CAMERA_MODE){
+						morphcon[i].resetCalibration();
+					}
+				}
 				goto restart;
 				break;
 			case 'd':
+				for (int i = 0; i < 8; i++){
+					if (modes[i] == CAMERA_MODE){
+						morphcon[i].deleteLastCalibrationPoint();
+					}
+				}
 				goto restartPoint;
 				break;
 			case 'a':
 				_tprintf(_T("Point %i validated \n"), i+1);
 				break;
+			default :
+				goto wrongButton;
 			}
-
+			//waiting a second so windows doesn't explode and no point does get interpretated twice or even more
 			Sleep(1000);
 		}
 		//starting the mosuecontroll
