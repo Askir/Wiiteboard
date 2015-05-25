@@ -46,7 +46,8 @@ void CALLBACK intervallMouseControl(
 	//refreshing wiimote data every Tick to get the newest Data
 	wh.refreshWiimotes();
 	//Initializing some needed Arrays for later us
-	static Coord* lastpoints[8] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	static Coord* lastPoints[8] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+	static int lastPointcounter[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 	Coord* seenPoints[8] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 	PenAction action[8] = { NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION, NO_ACTION };
 	//getting the IRDATA from every single camera mode wiimote and processing it with the linked morphcontroller
@@ -54,7 +55,11 @@ void CALLBACK intervallMouseControl(
 		if (modes[i] == CAMERA_MODE){
 			bool visible = false;
 			float data[2];
-			visible = wh.getIRData(i, 0, data);
+			int k = 0;
+			while (!visible && k < 4){
+				visible = wh.getIRData(i, k, data);
+				k++;
+			}
 			action[i] = morphcon[i].getNewData(visible);
 			if (visible){
 				
@@ -68,13 +73,16 @@ void CALLBACK intervallMouseControl(
 		}
 	}
 	//selfexplaining variable initializing. Why it is here and not earlier in the code? - I don't know I just felt that way
+	static int lastPointNr = 0;
 	int pointNr=0;
 	int xValue=0;
 	int yValue=0;
-	double maxValue = 65665;
+	double maxValue = 65635;
 	double minValue = 0;
 
 	//Adding the single IRValues together to get the average value later
+
+
 	for (int i = 0; i < 8; i++){
 		
 		if ((seenPoints[i] != NULL) && (seenPoints[i]->x >= minValue) && (seenPoints[i]->x <= maxValue) && (seenPoints[i]->x >= minValue) && (seenPoints[i]->x <= maxValue)) {
@@ -82,6 +90,17 @@ void CALLBACK intervallMouseControl(
 		//	_tprintf(_T("ADDED 1 to pointNR, pointNR is now %i \n"),pointNr);
 			xValue += seenPoints[i]->x;
 			yValue += seenPoints[i]->y;
+		}
+		else{
+			//if (lastPoints[i] != NULL){
+				lastPointcounter[i] += 1;
+			//}
+			if ((lastPoints[i] != NULL) && (lastPoints[i]->x >= minValue) && (lastPoints[i]->x <= maxValue) && (lastPoints[i]->x >= minValue) && (lastPoints[i]->x <= maxValue) && lastPointcounter[i] < 4){
+				pointNr++;
+				xValue += lastPoints[i]->x;
+				yValue += lastPoints[i]->y;
+
+			}
 		}
 	}
 	//setting the postiong to the average calculated value
@@ -108,8 +127,16 @@ void CALLBACK intervallMouseControl(
 	}
 	//deleting the seenPOints to prevent a memory leak
 	for (int i=0; i < 8; i++){
-		lastpoints[i] = seenPoints[i];
-		delete seenPoints[i];
+		if (lastPointcounter[i]>3){
+			delete lastPoints[i];
+			lastPointcounter[i] = 0;
+		}
+		if (seenPoints[i] != NULL || lastPoints[i]!=NULL){
+			delete lastPoints[i];
+			lastPoints[i] = seenPoints[i];
+			lastPointcounter[i] = 0;
+		}
+		
 	}
 	
 	LeaveCriticalSection(&cs);
