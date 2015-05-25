@@ -137,7 +137,12 @@ Coord* Perspective::transform(Coord pen)
 
 	double x, y;
 	x = morphedPen->v[0];
+	if (x < 0) { x = 0; }
+	else if (x > 1) { x = 1; }
 	y = morphedPen->v[1];
+	if (y < 0) { y = 0; }
+	else if (y > 1) { y = 1; }
+
 	delete p, t, support, trace, morphedPen;
 	return new Coord(x, y);
 }
