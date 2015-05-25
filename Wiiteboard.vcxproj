@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D9DFBA00-7B05-45E5-BD79-5CCEB56A26B7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Wiiteboard</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\Alex\Source\Repos\WiiteboardLogic\Wiiteboard\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Alex\Source\Repos\WiiteboardLogic\Wiiteboard\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Jascha\Source\Repos\WiiteboardLogic\Wiiteboard;C:\Users\Jascha\Source\Repos\WiiteboardLogic\Wiiteboard\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Jascha\Source\Repos\WiiteboardLogic\Wiiteboard;D:\WIIYOURSELF\WiiYourself!_1.15 %281%29\WiiYourself!_1.15;C:\Users\Jascha\Source\Repos\WiiteboardLogic\Wiiteboard\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MouseInputDLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Coord.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="MouseInputDLL.h" />
+    <ClInclude Include="PCInputDLL.h" />
+    <ClInclude Include="Perspective.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="wiimote.h" />
+    <ClInclude Include="WiimoteMode.h" />
+    <ClInclude Include="wiimote_common.h" />
+    <ClInclude Include="wiimote_state.h" />
+    <ClInclude Include="InputHandling.h" />
+    <ClInclude Include="MorphingController.h" />
+    <ClInclude Include="MouseMovement.h" />
+    <ClInclude Include="PenAction.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="QuadrangleMorphing.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="WiimoteHandler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Coord.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Perspective.cpp" />
+    <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="wiimote.cpp" />
+    <ClCompile Include="InputHandling.cpp" />
+    <ClCompile Include="MorphingController.cpp" />
+    <ClCompile Include="MouseMovement.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="QuadrangleMorphing.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="WiimoteHandler.cpp" />
+    <ClCompile Include="Wiiteboard.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MouseInputDLL.dll" />
+    <None Include="PCInputDLL.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="MouseInputDLL.lib" />
+    <Library Include="PCInputDLL.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
