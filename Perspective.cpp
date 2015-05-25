@@ -22,6 +22,8 @@ Perspective::Perspective(Coord ca, Coord cb, Coord cc, Coord cd)
 	Vector* d = new Vector(cd);
 
 	calibrate(a, b, c, d);
+
+	delete a, b, c, d;
 }
 
 
@@ -118,7 +120,9 @@ void Perspective::calibrate(Vector* a, Vector* b, Vector* c, Vector* d)
 	morph = resize->combine(rectangify);
 
 
-	delete va, vb, vc, vd, vz, pa, pb, pc, pd, ax, ay, az, helper, tb, rectC;
+	delete va, vb, vc, vd, vz, pa, pb, pc, pd, ax, ay, az, helper;
+	delete tb;
+	delete rectC;
 	delete transform, rotate, shear, transRotate, rectangify, resize;
 	
 }
@@ -143,7 +147,11 @@ Coord* Perspective::transform(Coord pen)
 	if (y < 0) { y = 0; }
 	else if (y > 1) { y = 1; }
 
-	delete p, t, support, trace, morphedPen;
+	delete p;
+	delete t;
+	delete morphedPen;
+	delete support;
+	delete trace;
 	return new Coord(x, y);
 }
 
@@ -161,7 +169,8 @@ Vector* Perspective::calcCenter(Vector* a, Vector* b, Vector* c, Vector* d)
 	dtnA->scale(meetAt);
 	Vector* center = a->sum(dtnA);
 
-	delete dtnA, dtnB;
+	delete dtnA;
+	delete dtnB;
 	return center;
 }
 

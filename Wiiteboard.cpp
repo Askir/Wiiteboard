@@ -1,6 +1,8 @@
 // Wiiteboard.cpp : Defines the entry point for the console application.
 //Author: mainly Jascha Beste (ca. 90%)
-
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "stdafx.h"
 #include <iostream>
 #include <vector>
@@ -129,12 +131,17 @@ void CALLBACK intervallMouseControl(
 	for (int i=0; i < 8; i++){
 		if (lastPointcounter[i]>3){
 			delete lastPoints[i];
+			lastPoints[i] = NULL;
 			lastPointcounter[i] = 0;
 		}
-		if (seenPoints[i] != NULL || lastPoints[i]!=NULL){
+		if (seenPoints[i] != NULL){
 			delete lastPoints[i];
 			lastPoints[i] = seenPoints[i];
 			lastPointcounter[i] = 0;
+		}
+		else{
+			delete seenPoints[i];
+			seenPoints[i] = NULL;
 		}
 		
 	}
@@ -281,9 +288,9 @@ wrongButton:
 		startMouseControl();
 	}
 	
-	while (true){
+	//while (true){
 		//wh.refreshWiimotes();
-	}
+	//}
 	//just some test code down here. Delete it if you want to
 
 	/**_tprintf(_T("to start calibrating press 'c'"));
@@ -373,7 +380,8 @@ wrongButton:
 	Point point = morphingOfD00M.startPointTransformation(Point(500, 19, 0));
 	setPosition(point.getX() * 65565, (1 - point.getY()) * 65565);
 	std::cout << point.getX() << " " << point.getY(); **/
-	Sleep(300000);
+	//Sleep(300000);
+	_CrtDumpMemoryLeaks();
 }
 
 
