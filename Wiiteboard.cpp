@@ -122,7 +122,7 @@ void CALLBACK intervallMouseControl(
 	for (unsigned i = 0; i < connected; i++){
 		if (action[i] != NO_ACTION){
 			if (action[i] != MOUSE_DISCONNECT){
-				//mouse.executePenAction(action[i]);
+				mouse.executePenAction(action[i]);
 				break;
 			}
 		}
