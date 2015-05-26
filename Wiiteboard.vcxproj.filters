@@ -75,9 +75,6 @@
     <ClInclude Include="Coord.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="InputHandlingMouseMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="InputHandlingTouchMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -120,9 +117,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Coord.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InputHandlingMouseMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InputHandlingTouchMode.cpp">

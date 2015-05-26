@@ -12,7 +12,6 @@ MorphingController::MorphingController()
 {
 	quadrangleMorphing = QuadrangleMorphing();
 	mouseMovement = MouseMovement();
-	inputHandling = InputHandlingMouseMode();
 	inputHandlingTouchMode = InputHandlingTouchMode();
 	calibrationRectangle = Rectangle();
 }

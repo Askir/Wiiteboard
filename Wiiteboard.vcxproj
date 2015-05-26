@@ -95,7 +95,6 @@
     <ClInclude Include="WiimoteMode.h" />
     <ClInclude Include="wiimote_common.h" />
     <ClInclude Include="wiimote_state.h" />
-    <ClInclude Include="InputHandlingMouseMode.h" />
     <ClInclude Include="MorphingController.h" />
     <ClInclude Include="MouseMovement.h" />
     <ClInclude Include="PenAction.h" />
@@ -113,7 +112,6 @@
     <ClCompile Include="Perspective.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="wiimote.cpp" />
-    <ClCompile Include="InputHandlingMouseMode.cpp" />
     <ClCompile Include="MorphingController.cpp" />
     <ClCompile Include="MouseMovement.cpp" />
     <ClCompile Include="Point.cpp" />
