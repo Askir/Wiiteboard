@@ -10,11 +10,11 @@
 #include "Point.h"
 #include <windows.h>
 #include "Rectangle.h"
-#include <MouseInputDLL.h>
+#include "MouseInputDLL.h"
 #include "MorphingController.h"
 #include "PenAction.h"
 #include <array>
-#include "InputHandling.h"
+#include "InputHandlingTouchMode.h"
 #include <random>
 #include "WiimoteHandler.h"
 #include <conio.h>
