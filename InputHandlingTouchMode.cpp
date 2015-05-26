@@ -7,6 +7,7 @@ bool InputHandlingTouchMode::onReceiveIRPoint(Coord* point) {
 	if (deltaX < 0.025 && deltaY < 0.025) {
 		return true;
 	}
+	//delete referencedCoord;
 	referencedCoord = point;
 	resetCounter();
 	return false;	
@@ -44,3 +45,8 @@ void InputHandlingTouchMode::resetCounter() {
 InputHandlingTouchMode::~InputHandlingTouchMode()
 {
 }
+InputHandlingTouchMode::InputHandlingTouchMode()
+{
+	referencedCoord = new Coord(0, 0);
+}
+

@@ -3,7 +3,7 @@
 
 #include "QuadrangleMorphing.h"
 #include "MouseMovement.h"
-#include "InputHandlingMouseMode.h"
+//#include "InputHandlingMouseMode.h"
 #include "InputHandlingTouchMode.h"
 #include "Rectangle.h"
 #include "Point.h"
@@ -31,7 +31,7 @@ private:
 	QuadrangleMorphing MorphingController::quadrangleMorphing;
 	MouseMovement MorphingController::mouseMovement;
 	void MorphingController::executeMouseAction(Point mousePoint, PenAction penAction);
-	InputHandlingMouseMode MorphingController::inputHandling;
+	//InputHandlingMouseMode MorphingController::inputHandling;
 	InputHandlingTouchMode MorphingController::inputHandlingTouchMode;
 	uschi::Rectangle MorphingController::calibrationRectangle;
 	std::vector<int> MorphingController::lastBitValues;

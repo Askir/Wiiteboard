@@ -6,7 +6,7 @@
 class InputHandlingTouchMode
 {
 public:
-	InputHandlingTouchMode() {};
+	InputHandlingTouchMode();
 	bool InputHandlingTouchMode::onReceiveIRPoint(Coord* point);
 	PenAction InputHandlingTouchMode::onReceiveData(bool data);
 	~InputHandlingTouchMode();

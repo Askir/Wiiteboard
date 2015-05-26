@@ -380,7 +380,7 @@ wrongButton:
 	Point point = morphingOfD00M.startPointTransformation(Point(500, 19, 0));
 	setPosition(point.getX() * 65565, (1 - point.getY()) * 65565);
 	std::cout << point.getX() << " " << point.getY(); **/
-	//Sleep(300000);
+	Sleep(300000);
 	_CrtDumpMemoryLeaks();
 }
 
