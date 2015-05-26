@@ -1,10 +1,11 @@
 #include "InputHandlingTouchMode.h"
 #include <math.h>
+#include <stdlib.h>
 
 bool InputHandlingTouchMode::onReceiveIRPoint(Coord* point) {
 	double deltaX = abs( point->x - referencedCoord->x );
 	double deltaY = abs( point->y - referencedCoord->y );
-	if (deltaX < 0.025 && deltaY < 0.025) {
+	if (deltaX < 0.25 && deltaY < 0.25) {
 		return true;
 	}
 	//delete referencedCoord;
