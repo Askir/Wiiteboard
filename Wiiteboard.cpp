@@ -1,6 +1,6 @@
 // Wiiteboard.cpp : Defines the entry point for the console application.
 //Author: mainly Jascha Beste (ca. 90%)
-#define _CRTDBG_MAP_ALLOC
+//#define _CRTDBG_MAP_ALLOC //just defined to detect memory leaks
 #include <stdlib.h>
 #include <crtdbg.h>
 #include "stdafx.h"
@@ -71,7 +71,7 @@ void CALLBACK intervallMouseControl(
 				seenPoints[i]->x = seenPoints[i]->x * 65635;
 				seenPoints[i]->y = seenPoints[i]->y * 65635;
 			}
-			_tprintf(_T("Wiimotenr: %i has seen? %d \n"),i, visible);
+			//_tprintf(_T("Wiimotenr: %i has seen? %d \n"),i, visible);
 		}
 	}
 	//selfexplaining variable initializing. Why it is here and not earlier in the code? - I don't know I just felt that way
@@ -234,7 +234,7 @@ restart:
 		
 		for (int i = 0; i < 4; i++){
 restartPoint:
-			_tprintf(_T("Please tap int the Corner Number %i \n"), i+1);
+			_tprintf(_T("Please tap into the Corner Number %i \n"), i+1);
 		
 			
 			for (unsigned i2 = 0; i2 < connected; i2++){
@@ -260,17 +260,17 @@ wrongButton:
 			char input = _getch();
 			switch (input){
 			case 'r':
-				for (int i = 0; i < 8; i++){
-					if (modes[i] == CAMERA_MODE){
-						morphcon[i].resetCalibration();
+				for (int motenr = 0; motenr < 8; motenr++){
+					if (modes[motenr] == CAMERA_MODE){
+						morphcon[motenr].resetCalibration();
 					}
 				}
 				goto restart;
 				break;
 			case 'd':
-				for (int i = 0; i < 8; i++){
-					if (modes[i] == CAMERA_MODE){
-						morphcon[i].deleteLastCalibrationPoint();
+				for (int motenr = 0; motenr < 8; motenr++){
+					if (modes[motenr] == CAMERA_MODE){
+						morphcon[motenr].deleteLastCalibrationPoint();
 					}
 				}
 				goto restartPoint;
@@ -380,8 +380,8 @@ wrongButton:
 	Point point = morphingOfD00M.startPointTransformation(Point(500, 19, 0));
 	setPosition(point.getX() * 65565, (1 - point.getY()) * 65565);
 	std::cout << point.getX() << " " << point.getY(); **/
-	Sleep(300000);
-	_CrtDumpMemoryLeaks();
+	//Sleep(300000);
+	_CrtDumpMemoryLeaks(); //detection of memory leaks
 }
 
 
