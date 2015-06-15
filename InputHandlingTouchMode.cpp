@@ -22,23 +22,38 @@ bool InputHandlingTouchMode::onReceiveIRPoint(Coord* point) {
 
 PenAction InputHandlingTouchMode::onReceiveData(bool data) {
 	if (data) {
+		receivedDataCounter++;
 		if (receivedDataCounter == 150) {
 			isRightClick = true;
+			leftDown = false;
+			return LEFT_CLICK_UP;
 		}
 		std::cout << "Counter:" << receivedDataCounter << "\n";
-		receivedDataCounter++;
-		return LEFT_CLICK_DOWN;
+		
+		if (!leftDown){
+			leftDown = true;
+			return LEFT_CLICK_DOWN;
+		}
+		else{
+			return NO_ACTION;
+		}
 	}
 	else {
 		receivecZerosCounter++;
-		if (receivecZerosCounter == 3) {
+		if (receivecZerosCounter == 20) {
 			if (isRightClick) {
 				resetCounter();
 				return RIGHT_CLICK;
 			}
 			else {
 				resetCounter();
-				return LEFT_CLICK_UP;
+				if (leftDown){
+					leftDown = false;
+					return LEFT_CLICK_UP;
+				}
+				else{
+					return NO_ACTION;
+				}
 			}
 		}
 	}

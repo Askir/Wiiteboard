@@ -11,11 +11,13 @@ public:
 	PenAction InputHandlingTouchMode::onReceiveData(bool data);
 	~InputHandlingTouchMode();
 private:
+
 	Coord* InputHandlingTouchMode::referencedCoord;
 	void InputHandlingTouchMode::resetCounter();
 	int InputHandlingTouchMode::receivedDataCounter = 0;
 	int InputHandlingTouchMode::receivecZerosCounter = 0;
 	bool InputHandlingTouchMode::isRightClick = false;
+	bool InputHandlingTouchMode::leftDown = false;
 };
 
 
